@@ -221,3 +221,5 @@ Les tests d'accessibilité avec un vrai lecteur d'écran restent à faire (voir 
 MIT, à adapter selon vos besoins.
 
 Projet réalisé par massinissa19-99, étudiant en master MIASHS.
+
+je suis à la recherche d'une alterance et je suis trés motivé pour reussir
