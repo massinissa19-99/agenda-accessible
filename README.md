@@ -7,17 +7,20 @@ Projet pédagogique réalisé en **HTML, CSS, PHP (PDO) et MySQL**, sans framewo
 ## Fonctionnalités
 
 **Pour tous les visiteurs**
+
 - Liste des événements avec **recherche par mot-clé**, **filtre par catégorie** et **filtres d'accessibilité**
 - **Fiche détaillée** de chaque événement (date, lieu, tarif, options d'accessibilité, précisions sur l'accès)
 - **Formulaire de contact** avec validation côté serveur et enregistrement en base
 - **Déclaration d'accessibilité**
 
 **Pour les membres (compte gratuit)**
+
 - **Inscription** et **connexion** (mot de passe haché, session sécurisée)
 - **Inscription / désinscription** aux événements
 - Page **Mon compte** : informations, liste des inscriptions, changement de mot de passe
 
 **Pour les administrateurs**
+
 - **Créer, modifier, supprimer** des événements
 - **Publier / dépublier** : un événement en brouillon n'est visible que des administrateurs
 - Voir les **personnes inscrites** à chaque événement
@@ -26,21 +29,21 @@ Projet pédagogique réalisé en **HTML, CSS, PHP (PDO) et MySQL**, sans framewo
 
 ## Comptes de démonstration
 
-| Rôle | E-mail | Mot de passe |
-| --- | --- | --- |
-| Administrateur | `admin@exemple.fr` | `Admin-Agenda-2026` |
-| Membre | `membre@exemple.fr` | `Membre-Agenda-2026` |
+| Rôle           | E-mail              | Mot de passe         |
+| -------------- | ------------------- | -------------------- |
+| Administrateur | `admin@exemple.fr`  | `Admin-Agenda-2026`  |
+| Membre         | `membre@exemple.fr` | `Membre-Agenda-2026` |
 
 > **Important** : ces mots de passe sont publics (ils sont dans ce dépôt). Changez-les via **Mon compte → Changer mon mot de passe** dès la première connexion, et ne mettez jamais en ligne un site qui les utilise encore.
 
 ## Technologies
 
-| Couche | Choix |
-| --- | --- |
-| Structure | HTML5 sémantique |
-| Style | CSS3 (variables, grid, flexbox, media queries) |
-| Serveur | PHP 8.1 ou plus (PDO) |
-| Base de données | MySQL 8 / MariaDB 10.4 ou plus |
+| Couche          | Choix                                          |
+| --------------- | ---------------------------------------------- |
+| Structure       | HTML5 sémantique                               |
+| Style           | CSS3 (variables, grid, flexbox, media queries) |
+| Serveur         | PHP 8.1 ou plus (PDO)                          |
+| Base de données | MySQL 8 / MariaDB 10.4 ou plus                 |
 
 ## Installation
 
@@ -52,7 +55,7 @@ Projet pédagogique réalisé en **HTML, CSS, PHP (PDO) et MySQL**, sans framewo
 4. Copier `config/config.example.php` en `config/config.php` (les valeurs par défaut de XAMPP conviennent).
 5. Ouvrir <http://localhost/agenda-accessible/>.
 
-> Astuce Windows : activez *Affichage → Afficher → Extensions de nom de fichier* pour ne pas créer par erreur `config.php.txt`.
+> Astuce Windows : activez _Affichage → Afficher → Extensions de nom de fichier_ pour ne pas créer par erreur `config.php.txt`.
 
 ### En ligne de commande
 
@@ -131,23 +134,23 @@ Les clés étrangères des inscriptions sont en `ON DELETE CASCADE` : supprimer 
 
 ## Accessibilité : ce qui est fait et où le voir
 
-| Principe | Mise en œuvre | Fichier |
-| --- | --- | --- |
-| Langue et titre de page | `<html lang="fr">`, `<title>` unique par page | `includes/header.php` |
-| Lien d'évitement | « Aller au contenu principal » | `header.php`, `style.css` |
-| Repères de page | `<header>`, `<nav aria-label>`, `<main>`, `<footer>`, `role="search"` | `header.php`, `index.php` |
-| Navigation clavier | Éléments natifs (liens, boutons, champs), ordre du DOM logique | partout |
-| Focus visible | Contour épais à deux couleurs sur `:focus-visible` | `style.css` |
-| Page courante | `aria-current="page"` | `header.php`, `auth.php` |
-| Formulaires | `<label for>`, `fieldset`/`legend`, `autocomplete`, aide liée par `aria-describedby` | `includes/forms.php` |
-| Erreurs | Résumé en haut avec liens vers les champs, `aria-invalid`, message texte | `includes/forms.php` |
-| Messages de retour | Confirmation après une action (flash), annoncée aux lecteurs d'écran | `functions.php`, `header.php` |
-| Action destructrice | Page de confirmation explicite, jamais un simple lien | `admin/supprimer.php` |
-| Pas de couleur seule | « disponible / non disponible » en texte, liens soulignés | `evenement.php`, `style.css` |
-| Contrastes | Au moins 4,5:1 pour le texte (thèmes clair et sombre) | `style.css` |
-| Cibles tactiles | Hauteur minimale de 44 px | `style.css` |
-| Responsive | Grille fluide, lisible dès 320 px, zoom jamais bloqué | `style.css` |
-| Préférences système | `prefers-color-scheme`, `prefers-reduced-motion`, `forced-colors` | `style.css` |
+| Principe                | Mise en œuvre                                                                        | Fichier                       |
+| ----------------------- | ------------------------------------------------------------------------------------ | ----------------------------- |
+| Langue et titre de page | `<html lang="fr">`, `<title>` unique par page                                        | `includes/header.php`         |
+| Lien d'évitement        | « Aller au contenu principal »                                                       | `header.php`, `style.css`     |
+| Repères de page         | `<header>`, `<nav aria-label>`, `<main>`, `<footer>`, `role="search"`                | `header.php`, `index.php`     |
+| Navigation clavier      | Éléments natifs (liens, boutons, champs), ordre du DOM logique                       | partout                       |
+| Focus visible           | Contour épais à deux couleurs sur `:focus-visible`                                   | `style.css`                   |
+| Page courante           | `aria-current="page"`                                                                | `header.php`, `auth.php`      |
+| Formulaires             | `<label for>`, `fieldset`/`legend`, `autocomplete`, aide liée par `aria-describedby` | `includes/forms.php`          |
+| Erreurs                 | Résumé en haut avec liens vers les champs, `aria-invalid`, message texte             | `includes/forms.php`          |
+| Messages de retour      | Confirmation après une action (flash), annoncée aux lecteurs d'écran                 | `functions.php`, `header.php` |
+| Action destructrice     | Page de confirmation explicite, jamais un simple lien                                | `admin/supprimer.php`         |
+| Pas de couleur seule    | « disponible / non disponible » en texte, liens soulignés                            | `evenement.php`, `style.css`  |
+| Contrastes              | Au moins 4,5:1 pour le texte (thèmes clair et sombre)                                | `style.css`                   |
+| Cibles tactiles         | Hauteur minimale de 44 px                                                            | `style.css`                   |
+| Responsive              | Grille fluide, lisible dès 320 px, zoom jamais bloqué                                | `style.css`                   |
+| Préférences système     | `prefers-color-scheme`, `prefers-reduced-motion`, `forced-colors`                    | `style.css`                   |
 
 ## Sécurité
 
@@ -187,12 +190,12 @@ Les tests d'accessibilité avec un vrai lecteur d'écran restent à faire (voir 
 
 ## Problèmes fréquents
 
-| Problème | Solution |
-| --- | --- |
-| « Configuration manquante » | `config/config.php` n'existe pas : copier `config.example.php` (attention à l'extension cachée sous Windows) |
-| Accents déformés (`Ã©`) | Réimporter `schema.sql` : il contient `SET NAMES utf8mb4`. Si les données sont déjà abîmées, supprimer la base puis réimporter |
-| Page blanche ou erreur 500 | Lire `C:\xampp\apache\logs\error.log` (XAMPP) |
-| Connexion impossible avec le compte de démonstration | Vérifier que l'import de `schema.sql` (ou de la migration) s'est bien terminé |
+| Problème                                             | Solution                                                                                                                       |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| « Configuration manquante »                          | `config/config.php` n'existe pas : copier `config.example.php` (attention à l'extension cachée sous Windows)                   |
+| Accents déformés (`Ã©`)                              | Réimporter `schema.sql` : il contient `SET NAMES utf8mb4`. Si les données sont déjà abîmées, supprimer la base puis réimporter |
+| Page blanche ou erreur 500                           | Lire `C:\xampp\apache\logs\error.log` (XAMPP)                                                                                  |
+| Connexion impossible avec le compte de démonstration | Vérifier que l'import de `schema.sql` (ou de la migration) s'est bien terminé                                                  |
 
 ## Pistes d'amélioration
 
@@ -216,3 +219,5 @@ Les tests d'accessibilité avec un vrai lecteur d'écran restent à faire (voir 
 ## Licence
 
 MIT, à adapter selon vos besoins.
+
+Projet réalisé par massinissa19-99, étudiant en master MIASHS.
