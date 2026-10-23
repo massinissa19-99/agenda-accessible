@@ -1,0 +1,732 @@
+/* ==========================================================
+   Agenda Accessible – feuille de style
+   Principes : unités relatives (rem), contrastes WCAG AA,
+   focus très visible, cibles tactiles >= 44 px, mise en page fluide,
+   respect des préférences système (thème, animations, contraste forcé).
+   ========================================================== */
+
+/* ---------- 1. Variables (couleurs, espacements) ---------- */
+:root {
+    color-scheme: light dark;
+
+    --bg: #ffffff;
+    --bg-alt: #f3f6fa;
+    --text: #1a1a1a;
+    --text-muted: #4a4f57;
+    --link: #0b5cad;
+    --primary: #0b5cad;
+    --primary-hover: #08407a;
+    --on-primary: #ffffff;
+    --header-bg: #0b3d6e;
+    --header-text: #ffffff;
+    --border: #6b7280;
+    --error: #b00020;
+    --on-error: #ffffff;
+    --error-bg: #fdecee;
+    --success: #0a5c28;
+    --success-bg: #e8f5ec;
+    --badge-bg: #e1edf9;
+    --badge-text: #08407a;
+    --focus-ring: #1a1a1a;
+    --focus-halo: #ffd23f;
+
+    --space: 1rem;
+    --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #121417;
+        --bg-alt: #1c2026;
+        --text: #f1f3f5;
+        --text-muted: #c3c8cf;
+        --link: #8ec1f5;
+        --primary: #8ec1f5;
+        --primary-hover: #b9d9fa;
+        --on-primary: #0b1f33;
+        --header-bg: #0b2a4a;
+        --border: #8b93a0;
+        --error: #ff8a9b;
+        --on-error: #1a0006;
+        --error-bg: #3a1a20;
+        --success: #9be3b2;
+        --success-bg: #14301d;
+        --badge-bg: #1f3550;
+        --badge-text: #cfe6ff;
+        --focus-ring: #ffffff;
+    }
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;               /* respecte la taille choisie dans le navigateur */
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1.125rem;           /* 18 px par défaut */
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding-block: 1.5rem 3rem;
+}
+
+main:focus {
+    outline: none;                 /* <main> n'est pas interactif : focus uniquement programmatique */
+}
+
+.container {
+    width: min(100% - 2rem, 70rem);
+    margin-inline: auto;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    margin-block: 1.5rem 0.75rem;
+}
+
+h1 { font-size: 2rem; margin-top: 0.5rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+
+p, ul, dl {
+    margin-block: 0 1rem;
+}
+
+p, li, dd {
+    max-width: 70ch;               /* longueur de ligne confortable */
+}
+
+a {
+    color: var(--link);
+    text-decoration: underline;    /* les liens restent soulignés : pas de couleur seule */
+    text-underline-offset: 0.15em;
+}
+
+a:hover {
+    text-decoration-thickness: 0.2em;
+}
+
+/* ---------- 3. Focus clavier : toujours visible ---------- */
+:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--focus-halo);
+    border-radius: 2px;
+}
+
+/* ---------- 4. Utilitaires ---------- */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: -5rem;                    /* hors écran tant qu'il n'a pas le focus */
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 700;
+    border: 3px solid var(--text);
+}
+
+.skip-link:focus {
+    top: 0.5rem;
+}
+
+.intro {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+/* ---------- 5. En-tête, navigation, pied de page ---------- */
+.site-header {
+    background: var(--header-bg);
+    color: var(--header-text);
+}
+
+.header-inner {
+    display: flex;
+    flex-wrap: wrap;               /* à 320 px, la navigation passe sous le titre */
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-block: 0.75rem;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.site-title a,
+.nav-list a {
+    color: var(--header-text);
+}
+
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;           /* cible tactile >= 44 px */
+    padding-inline: 0.25rem;
+}
+
+.nav-list a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-thickness: 0.2em;   /* page courante signalée autrement que par la couleur */
+}
+
+.site-header :focus-visible {
+    outline-color: #ffffff;
+}
+
+.site-footer {
+    background: var(--bg-alt);
+    border-top: 2px solid var(--border);
+    padding-block: 1.5rem;
+    color: var(--text-muted);
+}
+
+.site-footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- 6. Formulaires ---------- */
+.search-form,
+.contact-form {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.contact-form {
+    max-width: 40rem;
+}
+
+.search-form h2 {
+    margin-top: 0.25rem;
+}
+
+.field {
+    margin-bottom: 1.25rem;
+    border: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+label,
+legend {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    padding: 0;
+}
+
+.required {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.hint {
+    margin-bottom: 0.4rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 40rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 0.375rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.checkbox-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkbox-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding-block: 0.25rem;
+}
+
+.checkbox-list input[type="checkbox"] {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.25rem 0 0;
+    accent-color: var(--primary);
+}
+
+.checkbox-list label {
+    font-weight: 400;
+    margin: 0;
+    padding-top: 0.2rem;
+}
+
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea {
+    border-color: var(--error);
+    border-width: 3px;
+}
+
+.error-message {
+    color: var(--error);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+}
+
+.button {
+    display: inline-block;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.5rem;
+    font: inherit;
+    font-weight: 700;
+    color: var(--on-primary);
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+/* ---------- 7. Messages (erreurs, succès) ---------- */
+.alert {
+    max-width: 40rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 0.5rem solid;
+    border-radius: var(--radius);
+}
+
+.alert h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.alert ul {
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+}
+
+.alert :last-child {
+    margin-bottom: 0;
+}
+
+.alert-error {
+    background: var(--error-bg);
+    border-color: var(--error);
+    color: var(--text);
+}
+
+.alert-error h2 {
+    color: var(--error);
+}
+
+.alert-success {
+    background: var(--success-bg);
+    border-color: var(--success);
+    color: var(--text);
+}
+
+.alert-success h2 {
+    color: var(--success);
+}
+
+/* ---------- 8. Liste d'événements (cartes) ---------- */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+}
+
+.card {
+    height: 100%;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+}
+
+.card h3 {
+    margin-top: 0.25rem;
+}
+
+.card-category {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+
+.card-meta {
+    color: var(--text);
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.badge {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--badge-text);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-text);
+    border-radius: 999px;
+}
+
+/* ---------- 9. Fiche d'un événement ---------- */
+.details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.details dt {
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.details dd {
+    margin: 0;
+}
+
+.access-list {
+    padding-left: 1.25rem;
+}
+
+.access-list li {
+    margin-bottom: 0.4rem;
+}
+
+.status-yes {
+    color: var(--success);
+}
+
+.status-no {
+    color: var(--error);
+}
+
+/* ---------- 9 bis. Comptes et administration ---------- */
+
+/* Bouton « Se déconnecter » : se présente comme les autres liens du menu */
+.nav-list form {
+    margin: 0;
+}
+
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    text-decoration-thickness: 0.2em;
+}
+
+/* Variantes de boutons */
+.button-secondary {
+    color: var(--link);
+    background: transparent;
+    border-color: var(--primary);
+}
+
+.button-secondary:hover {
+    color: var(--primary-hover);
+    background: var(--bg-alt);
+    border-color: var(--primary-hover);
+}
+
+.button-danger {
+    color: var(--on-error);
+    background: var(--error);
+    border-color: var(--error);
+}
+
+.button-danger:hover {
+    color: var(--on-error);
+    background: var(--error);
+    border-color: var(--error);
+    filter: brightness(0.9);
+}
+
+.button-small {
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+}
+
+.admin-form {
+    max-width: 44rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem 1.25rem;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+/* Menu secondaire de l'administration */
+.admin-nav {
+    margin-bottom: 1.5rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.admin-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.admin-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+}
+
+.admin-nav a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-thickness: 0.2em;
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.stack {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.alert-info {
+    background: var(--bg-alt);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+/* Tableaux : zone défilable horizontalement sur petit écran */
+.table-wrap {
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+table {
+    width: 100%;
+    min-width: 42rem;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+th,
+td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+}
+
+thead th {
+    background: var(--bg-alt);
+}
+
+tbody tr:last-child > * {
+    border-bottom: 0;
+}
+
+.table-sub {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+}
+
+.table-actions form {
+    margin: 0;
+}
+
+.table-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+}
+
+/* Statut « Brouillon » : bordure en pointillés en plus du texte (jamais la couleur seule) */
+.badge-draft {
+    color: var(--text);
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--text);
+}
+
+/* ---------- 10. Préférences utilisateur ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .button,
+    a {
+        transition: background-color 0.15s ease;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Mode contraste forcé de Windows : on garde des bordures visibles */
+@media (forced-colors: active) {
+    .badge,
+    .card,
+    .alert {
+        border: 2px solid CanvasText;
+    }
+
+    .button {
+        border: 2px solid ButtonText;
+    }
+
+    :focus-visible {
+        outline: 3px solid Highlight;
+        box-shadow: none;
+    }
+}
+
+/* ---------- 11. Grands écrans / petits écrans ---------- */
+@media (max-width: 30rem) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.35rem; }
+
+    .search-form,
+    .contact-form {
+        padding-inline: 1rem;
+    }
+}
+
+@media print {
+    .skip-link,
+    .search-form {
+        display: none;
+    }
+
+    body {
+        background: #ffffff;
+        color: #000000;
+    }
+}

@@ -1,0 +1,11 @@
+# Identifiants de base de données : ne jamais publier
+config/config.php
+
+# Fichiers d'éditeurs et du système
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Journaux
+*.log
