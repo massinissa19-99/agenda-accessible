@@ -199,8 +199,6 @@ Les tests d'accessibilité avec un vrai lecteur d'écran restent à faire (voir 
 
 ## utilisation de git
 
--add . pour ajouter une modification |
-
 ## Pistes d'amélioration
 
 - Limitation des tentatives de connexion, réinitialisation du mot de passe par e-mail
