@@ -197,6 +197,10 @@ Les tests d'accessibilité avec un vrai lecteur d'écran restent à faire (voir 
 | Page blanche ou erreur 500                           | Lire `C:\xampp\apache\logs\error.log` (XAMPP)                                                                                  |
 | Connexion impossible avec le compte de démonstration | Vérifier que l'import de `schema.sql` (ou de la migration) s'est bien terminé                                                  |
 
+## utilisation de git
+
+-add . pour ajouter une modification |
+
 ## Pistes d'amélioration
 
 - Limitation des tentatives de connexion, réinitialisation du mot de passe par e-mail
